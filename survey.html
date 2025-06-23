@@ -25,8 +25,17 @@
         padding: 7%;
         text-align: center;
     }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        background: white;
+    }
 </style>
 <body>
+<div class="container">
 <p id="alert-succ" class="alert alert-success" role="alert">
     Your question has been logged out.
 </p>
@@ -39,19 +48,20 @@
         <form>
             <div class="form-group">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" placeholder="Enter email" required>
             </div>
             <div class="form-group">
                 <label for="topic" class="form-label">Topic</label>
-                <input type="text" class="form-control" id="topic" placeholder="Enter topic of your question">
+                <input type="text" class="form-control" id="topic" pattern="^[a-zA-Z0-9\s\-_.]{3,100}$" placeholder="Enter topic of your question" required>
             </div>
             <div class="form-group">
                 <label for="Question" class="form-label">Your problem</label>
-                <input type="text" class="form-control" id="Question" placeholder="Enter question">
+                <input type="text" class="form-control" id="Question" pattern="^[a-zA-Z0-9\s\-_.]{10,500}$" placeholder="Enter question" required>
             </div>
             <button id='submit' type="submit" class="btn btn-primary">Submit</button>
         </form>
 <a href="/shop" class="btn btn-link" style="margin: 10px">Home</a>
+</div>
 </body>
 <script>
     const submit = document.getElementById('submit');
@@ -67,6 +77,9 @@
         if (!email || !question || !topic) {
             alert('Please enter data');
             return
+        } else if(!document.getElementById('email').checkValidity() || !document.getElementById('Question').checkValidity() || !document.getElementById('topic').checkValidity() ) {
+            alert("You've used improper characters.")
+            return
         }
         const response = await fetch('http://localhost:8080/survey/submit', {
             method: 'POST',
@@ -76,7 +89,12 @@
             body: JSON.stringify({ email, question, topic }),
         })
 
-        if (response.ok) {
+        if (response.ok && ) {
+            document.getElementById('email').value = ''
+            document.getElementById('Question').value = ''
+            document.getElementById('topic').value = ''
+
+
             const alert = document.getElementById('alert-succ');
             setTimeout(() => {
                 alert.style.maxHeight = '100px';
