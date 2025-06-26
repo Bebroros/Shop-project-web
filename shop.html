@@ -37,7 +37,7 @@
 
         return (
             <div className="card" style={{ width: '18rem', margin: '10px', minHeight: '100px' }}>
-                <img className="card-img-top" src={product.img} alt={product.name} style={{'padding': '10px', 'text-align': 'center', minHeight: '200px'}}/>
+                <img className="card-img-top" src={product.img} alt={product.name} style={{'padding': '10px', 'textAlign': 'center', minHeight: '200px'}}/>
                 <div className="card-body">
                     <h5 className="card-title">{product.name}</h5>
                     <p className="card-text">Price: {product.price}</p>
@@ -90,7 +90,7 @@
                     <label className="form-label"><strong>Select Category:</strong></label>
                     <select className="form-select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
                         {categories.map(category => (
-                            <option key={category.id} value={category}>{category}</option>
+                            <option key={category} value={category}>{category}</option>
                         ))}
                     </select>
                 </div>
